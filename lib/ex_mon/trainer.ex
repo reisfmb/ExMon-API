@@ -8,12 +8,13 @@ defmodule ExMon.Trainer do
     field :name, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+    has_many(:pokemon, ExMon.Trainer.Pokemon)
     timestamps()
   end
 
-  @required_params [:name, :password]
+  @required [:name, :password]
 
-  def apply_insert(params) do
+  def build(params) do
     params
     |> changeset()
     |> apply_action(:insert)
@@ -25,8 +26,8 @@ defmodule ExMon.Trainer do
 
   defp create_changeset(module_or_trainer, params) do
     module_or_trainer
-    |> cast(params, @required_params)
-    |> validate_required(@required_params)
+    |> cast(params, @required)
+    |> validate_required(@required)
     |> validate_length(:password, min: 6)
     |> change_password_hash()
     |> delete_change_password()

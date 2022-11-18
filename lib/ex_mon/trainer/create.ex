@@ -3,7 +3,7 @@ defmodule ExMon.Trainer.Create do
 
   def call(params) do
     params
-    |> Trainer.apply_insert()
+    |> Trainer.build()
     |> create_trainer()
   end
 

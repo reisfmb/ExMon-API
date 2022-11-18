@@ -5,7 +5,9 @@ defmodule ExMon.PokeApi.Client do
   plug Tesla.Middleware.JSON
 
   def get_pokemon(name) do
-    "/pokemon/#{name}" |> get() |> handle_get(name)
+    "/pokemon/#{name}"
+    |> get()
+    |> handle_get(name)
   end
 
   defp handle_get({:ok, %Tesla.Env{status: 200, body: body}}, _), do: {:ok, body}
